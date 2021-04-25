@@ -1,0 +1,5 @@
+name: MagicLib
+version: @version@
+main: com.magicsweet.lib.magiclib.MagicLib
+api-version: 1.16
+authors: [ MagicSweet ]
