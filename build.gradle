@@ -6,11 +6,11 @@ plugins {
     id 'maven-publish'
 }
 
+sourceCompatibility = 11
+targetCompatibility = 11
+
 group = 'com.github.MagicSweet-dev'
 version = '1.1-SNAPSHOT'
-
-sourceCompatibility = '11'
-targetCompatibility = '11'
 
 repositories {
     mavenCentral()
