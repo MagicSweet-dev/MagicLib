@@ -3,9 +3,10 @@ import org.apache.tools.ant.filters.ReplaceTokens
 plugins {
     id 'com.github.johnrengelman.shadow' version '6.1.0'
     id 'java'
+    id 'maven-publish'
 }
 
-group = 'com.magicsweet.lib'
+group = 'com.github.MagicSweet-dev'
 version = '1.1-SNAPSHOT'
 
 sourceCompatibility = '11'
