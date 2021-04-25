@@ -12,7 +12,7 @@ public final class MagicLib extends JavaPlugin {
 	}
 	
 	@Override
-	public void onLoad() {
+	public void onEnable() {
 		FastInvManager.register(this);
 	}
 	
