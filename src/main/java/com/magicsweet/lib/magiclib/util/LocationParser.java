@@ -28,4 +28,8 @@ public final class LocationParser {
     public static Vector vector(String location) {
         return new Vector(Double.parseDouble(location.split("\\s+")[0]), Double.parseDouble(location.split("\\s+")[1]), Double.parseDouble(location.split("\\s+")[2]));
     }
+    
+    public static String asString(Location location) {
+        return ((int) location.getX()) + " " + ((int) location.getY()) + " " + ((int) location.getZ());
+    }
 }
