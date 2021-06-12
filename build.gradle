@@ -11,17 +11,15 @@ sourceCompatibility = 11
 targetCompatibility = 11
 
 group = 'com.magicsweet'
-version = '1.1-SNAPSHOT'
+version = '1.1'
 
 repositories {
     mavenCentral()
     maven {
-        name = 'spigotmc-repo'
-        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
     maven {
-        name = 'sonatype'
-        url = 'https://oss.sonatype.org/content/groups/public/'
+        url 'https://oss.sonatype.org/content/groups/public/'
     }
     maven {
         url 'https://jitpack.io'
@@ -60,7 +58,7 @@ processResources {
 }
 
 publishing {
-    var file = new File('credentials.txt');
+    def file = new File('credentials.txt');
 
     publications {
         shadow(MavenPublication) { publication ->
