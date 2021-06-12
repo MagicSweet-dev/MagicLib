@@ -6,6 +6,8 @@ You can build project with [Gradle](https://gradle.org/) simply running `build` 
 
 ## Using
 You can add this library and use it into your project like this (copy+paste to [build.gradle](https://docs.gradle.org/current/samples/sample_building_java_libraries.html)):
+
+**Make sure your project uses Java 11 or higher!**
 ```gradle
 repositories {
   maven {
