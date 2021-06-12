@@ -1,18 +1,19 @@
 package com.magicsweet.bukkitminecraftadditions.Util;
 
+import lombok.experimental.UtilityClass;
+
 import java.util.ArrayList;
 import java.util.Collection;
-
 import java.util.concurrent.ThreadLocalRandom;
 
+@UtilityClass
 public class RandomNumber {
-
 	
-	public static int generateInt(int min, int max) {
+	public int generateInt(int min, int max) {
 		return ThreadLocalRandom.current().nextInt(min, max + 1);
-		
 	}
-	public static Collection<Integer> generateInts(int min, int max, int count) {
+	
+	public Collection<Integer> generateInts(int min, int max, int count) {
 		//not the most effective but works
 		Collection<Integer> collection = new ArrayList<Integer>();
 		if (max - min + 1 >= count) {
@@ -24,19 +25,20 @@ public class RandomNumber {
 					collection.add(num);
 				}
 				
-				}
-				return collection;
+			}
+			return collection;
 		} else {
 			System.out.println("Total number count can't be greater than requested number count!");
 			return null;
 		}
-
 		
 	}
-	public static Collection<Integer> generateCompleteInts(int min, int max, int count) {
+	
+	public Collection<Integer> generateCompleteInts(int min, int max, int count) {
 		//not the most effective but works
 		Collection<Integer> collection = new ArrayList<Integer>();
 		collection.add(ThreadLocalRandom.current().nextInt(min, max + 1));
-			return collection;
+		return collection;
 	}
+	
 }

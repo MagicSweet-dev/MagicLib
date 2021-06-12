@@ -3,13 +3,14 @@ import org.apache.tools.ant.filters.ReplaceTokens
 plugins {
     id 'com.github.johnrengelman.shadow' version '6.1.0'
     id 'java'
-    id 'maven'
+    id 'maven-publish'
 }
+
 
 sourceCompatibility = 11
 targetCompatibility = 11
 
-group = 'com.github.MagicSweet-dev'
+group = 'com.magicsweet'
 version = '1.1-SNAPSHOT'
 
 repositories {
@@ -29,7 +30,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
 
     compileOnly 'org.projectlombok:lombok:1.18.16'
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
@@ -40,7 +41,8 @@ dependencies {
 }
 
 jar {
-    dependsOn << shadowJar
+    enabled = false
+    dependsOn(tasks.shadowJar)
 }
 
 shadowJar {
@@ -48,6 +50,7 @@ shadowJar {
         include(dependency('fr.mrmicky:.*:.*'))
     }
     relocate 'fr.mrmicky', 'shadow.fr.mrmicky'
+    archiveClassifier.set('')
 }
 
 processResources {
@@ -56,31 +59,20 @@ processResources {
     }
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
+publishing {
+    var file = new File('credentials.txt');
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
-// To specify a license in the pom:
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            licenses {
-                license {
-                    name 'The Apache Software License, Version 3.0'
-                    url 'http://www.apache.org/licenses/LICENSE-3.0.txt'
-                    distribution 'repo'
-                }
+    publications {
+        shadow(MavenPublication) { publication ->
+            project.shadow.component(publication)
+        }
+    }
+    repositories {
+        maven {
+            url = "sftp://msweet.xyz:22/ivy/maven3"
+            credentials {
+                username file.readLines().get(0)
+                password file.readLines().get(1)
             }
         }
     }
