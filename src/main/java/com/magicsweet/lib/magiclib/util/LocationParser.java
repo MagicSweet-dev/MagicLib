@@ -1,14 +1,18 @@
 package com.magicsweet.lib.magiclib.util;
 
+import com.magicsweet.bukkitminecraftadditions.Color.Colorizer;
+import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.Nullable;
 
 
+@UtilityClass
 public final class LocationParser {
     
-    public static Location parse(World world, String location) {
+    public Location parse(World world, String location) {
         var split = location.split("\\s+");
         
         if (split.length > 3) {
@@ -21,15 +25,27 @@ public final class LocationParser {
         }
     }
     
-    public static Location parse(String location) {
+    public Location parse(String location) {
         return parse(Bukkit.getWorld("world"), location);
     }
     
-    public static Vector vector(String location) {
+    public Vector vector(String location) {
         return new Vector(Double.parseDouble(location.split("\\s+")[0]), Double.parseDouble(location.split("\\s+")[1]), Double.parseDouble(location.split("\\s+")[2]));
     }
     
-    public static String asString(Location location) {
-        return ((int) location.getX()) + " " + ((int) location.getY()) + " " + ((int) location.getZ());
+    public String asString(@Nullable Location location, boolean inclideWorld, String worldColor) {
+        if (location == null) return "null";
+        var str = ((int) location.getX()) + " " + ((int) location.getY()) + " " + ((int) location.getZ());
+        
+        if (inclideWorld) str = Colorizer.format(str + " " + worldColor + "(" + (location.getWorld() != null ? location.getWorld().getName() : "null") + ")");
+        return str;
+    }
+    
+    public String asString(@Nullable Location location, boolean inclideWorld) {
+        return asString(location, inclideWorld, "&8");
+    }
+    
+    public String asString(@Nullable Location location) {
+        return asString(location, false);
     }
 }
