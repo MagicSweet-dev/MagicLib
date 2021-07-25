@@ -1,6 +1,12 @@
 package com.magicsweet.bukkitminecraftadditions.Color;
 
+import lombok.experimental.UtilityClass;
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.chat.ComponentSerializer;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -9,25 +15,33 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+@UtilityClass
 public class Colorizer {
 	
-	public static List<String> format(List<String> stringList) {
-		return stringList.stream().map(string -> {
-			final Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
-			
-			Matcher match = pattern.matcher(string);
-			while (match.find()) {
-				String color = string.substring(match.start(), match.end());
-				
-				string = string.replace(color, ChatColor.of(color).toString());
-				match = pattern.matcher(string);
-			}
-			
-			return ChatColor.translateAlternateColorCodes('&', string);
-		}).collect(Collectors.toList());
+	public List<String> format(List<String> stringList) {
+		return stringList.stream().map(Colorizer::format).collect(Collectors.toList());
 	}
 	
-	public static String format(String string) {
+	public String tryFormatJson(String string) {
+		return tryFormatJson(string, null);
+	}
+	
+	public String tryFormatJson(String string, OfflinePlayer player) {
+		try {
+			return format(TextComponent.toLegacyText(ComponentSerializer.parse(string)), player);
+		} catch (Exception e) {
+			return format(string, player);
+		}
+	}
+	
+	
+	public String format(String string) {
+		return format(string, null);
+	}
+	
+	public String format(String string, OfflinePlayer player) {
+		
+		
 		final Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
 		
 		Matcher match = pattern.matcher(string);
@@ -39,28 +53,21 @@ public class Colorizer {
 			match = pattern.matcher(string);
 		}
 		
-		return ChatColor.translateAlternateColorCodes('&', string);
+		string = ChatColor.translateAlternateColorCodes('&', string);
+		
+		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") && player != null) {
+			string = PlaceholderAPI.setPlaceholders(player, string);
+		}
+		return string;
 	}
 	
 	@Deprecated
-	public static List<String> formatLegacy(List<String> stringList) {
-		return stringList.stream().map(string -> {
-			final Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
-			
-			Matcher match = pattern.matcher(string);
-			while (match.find()) {
-				String color = string.substring(match.start(), match.end());
-				
-				string = string.replace(color, convertHexColorToNearestMinecraftColor(color));
-				match = pattern.matcher(string);
-			}
-			
-			return ChatColor.translateAlternateColorCodes('&', string);
-		}).collect(Collectors.toList());
+	public List<String> formatLegacy(List<String> stringList) {
+		return stringList.stream().map(Colorizer::formatLegacy).collect(Collectors.toList());
 	}
 	
 	@Deprecated
-	public static String formatLegacy(String string) {
+	public String formatLegacy(String string) {
 		final Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
 		
 		Matcher match = pattern.matcher(string);
@@ -76,7 +83,7 @@ public class Colorizer {
 	}
 
 	
-	private static String convertHexColorToNearestMinecraftColor(String hex) {
+	private String convertHexColorToNearestMinecraftColor(String hex) {
 		
 		HashMap<Color, String> mcColors = new HashMap<>();
 		
