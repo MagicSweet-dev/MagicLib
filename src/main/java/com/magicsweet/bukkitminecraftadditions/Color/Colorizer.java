@@ -22,11 +22,11 @@ public class Colorizer {
 		return stringList.stream().map(Colorizer::format).collect(Collectors.toList());
 	}
 	
-	public String tryFormatJson(String string) {
-		return tryFormatJson(string, null);
+	public String json(String string) {
+		return json(string, null);
 	}
 	
-	public String tryFormatJson(String string, OfflinePlayer player) {
+	public String json(String string, OfflinePlayer player) {
 		try {
 			return format(TextComponent.toLegacyText(ComponentSerializer.parse(string)), player);
 		} catch (Exception e) {
