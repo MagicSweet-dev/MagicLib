@@ -26,6 +26,11 @@ public class Colorizer {
 		return json(string, null);
 	}
 	
+	public List<String> json(List<String> strings) {
+		return strings.stream().map(Colorizer::json).collect(Collectors.toList());
+	}
+	
+	
 	public String json(String string, OfflinePlayer player) {
 		try {
 			return format(TextComponent.toLegacyText(ComponentSerializer.parse(string)), player);
@@ -53,11 +58,13 @@ public class Colorizer {
 			match = pattern.matcher(string);
 		}
 		
-		string = ChatColor.translateAlternateColorCodes('&', string);
 		
 		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI") && player != null) {
 			string = PlaceholderAPI.setPlaceholders(player, string);
 		}
+		
+		string = ChatColor.translateAlternateColorCodes('&', string);
+		
 		return string;
 	}
 	

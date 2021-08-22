@@ -34,12 +34,24 @@ public class MySQLConnection {
 		);
 	}
 	
+	/**
+	 * @deprecated Use {@link #connectArgs(String, String...)}
+	 */
+	@Deprecated
+	public Connection connect(String schema, String... arguments) throws SQLException {
+		return DriverManager.getConnection(
+			("jdbc:mysql://[ip]/[schema]?useSSL=false" + String.join("&", arguments)).replace("[ip]", this.host).replace("[schema]", schema),
+			this.username,
+			this.password
+		);
+	}
+	
 	@SneakyThrows
 	public Connection connectArgs(String schema, String... arguments) {
 		return DriverManager.getConnection(
-				("jdbc:mysql://[ip]/[schema]?useSSL=false" + String.join("&", arguments)).replace("[ip]", this.host).replace("[schema]", schema),
-				this.username,
-				this.password
+			("jdbc:mysql://[ip]/[schema]?useSSL=false" + String.join("&", arguments)).replace("[ip]", this.host).replace("[schema]", schema),
+			this.username,
+			this.password
 		);
 	}
 	@Deprecated
