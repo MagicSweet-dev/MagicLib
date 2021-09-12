@@ -30,7 +30,7 @@ public final class MagicLib extends JavaPlugin {
 			@Override
 			public void run() {
 				Bukkit.getPluginManager().callEvent(new ServerTickEvent(tick));
-				Bukkit.getPluginManager().callEvent(new AsyncServerTickEvent(tick));
+				new Thread(() -> Bukkit.getPluginManager().callEvent(new AsyncServerTickEvent(tick))).start();
 				tick = tick + 1;
 			}
 			
