@@ -7,12 +7,18 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Fires every tick server is alive
+ */
 @Getter
 @RequiredArgsConstructor
 public class ServerTickEvent extends Event {
+	/**
+	 * Tick number since MagicLib initialization
+	 */
 	@NotNull Integer tickNumber;
 	
-	private static final HandlerList handlers = new HandlerList();
+	@Getter private static final HandlerList handlerList = new HandlerList();
 	
 	protected ServerTickEvent(int tick, boolean b) {
 		super(b);
@@ -22,6 +28,6 @@ public class ServerTickEvent extends Event {
 	@NonNull
 	@Override
 	public HandlerList getHandlers() {
-		return handlers;
+		return handlerList;
 	}
 }
