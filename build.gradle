@@ -10,7 +10,13 @@ sourceCompatibility = 11
 targetCompatibility = 11
 
 group = 'com.magicsweet'
-version = '1.1.4.7'
+version = '1.2.0-beta27'
+
+// todo plugin yml plugin, separate publish script (.gitignore) publish to remote without including plugin.yml file
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 
 repositories {
     mavenCentral()
@@ -43,8 +49,8 @@ dependencies {
     compile 'org.jetbrains:annotations:16.0.2'
 
     // JitPack
-    compile 'fr.mrmicky:FastInv:3.0.2'
-    compile 'fr.mrmicky:FastBoard:1.1.0'
+    compile 'fr.mrmicky:FastInv:3.0.3'
+    compile 'fr.mrmicky:FastBoard:1.2.0'
 }
 
 java {
@@ -61,7 +67,7 @@ shadowJar {
     dependencies {
         include(dependency('fr.mrmicky:.*:.*'))
     }
-    relocate 'fr.mrmicky', 'shadow.fr.mrmicky'
+    relocate 'fr.mrmicky', 'com.magicsweet.lib.magiclib.shadow.fr.mrmicky'
     archiveClassifier.set('')
 }
 
@@ -77,6 +83,12 @@ publishing {
     publications {
         shadow(MavenPublication) { publication ->
             project.shadow.component(publication)
+            artifact sourcesJar {
+                classifier 'sources'
+            }
+            artifact javadocJar {
+                classifier 'javadoc'
+            }
         }
     }
     repositories {

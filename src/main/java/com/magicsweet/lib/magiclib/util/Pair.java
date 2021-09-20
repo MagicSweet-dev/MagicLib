@@ -1,4 +1,4 @@
-package com.magicsweet.bukkitminecraftadditions.Util;
+package com.magicsweet.lib.magiclib.util;
 
 
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "of")
 @Builder
 public class Pair<T0, T1> {
 	T0 key;

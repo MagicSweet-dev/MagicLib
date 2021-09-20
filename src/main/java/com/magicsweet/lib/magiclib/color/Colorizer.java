@@ -1,5 +1,6 @@
-package com.magicsweet.bukkitminecraftadditions.Color;
+package com.magicsweet.lib.magiclib.color;
 
+import com.magicsweet.lib.magiclib.util.Pair;
 import lombok.experimental.UtilityClass;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
@@ -7,6 +8,8 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -20,6 +23,23 @@ public class Colorizer {
 	
 	public List<String> format(List<String> stringList) {
 		return stringList.stream().map(Colorizer::format).collect(Collectors.toList());
+	}
+	
+	public void send(Player pl, String msg, Pair<@Nullable ?, @Nullable ?>... placers) {
+		msg = setPlacers(msg, placers);
+		pl.sendMessage(format(msg));
+	}
+	
+	public String setPlacers(String msg, Pair<@Nullable ?, @Nullable ?>... placers) {
+		for (var it: placers) {
+			msg = msg.replace(it.getKey() + "", it.getValue() + "");
+		}
+		return msg;
+	}
+	
+	public void sendJson(Player pl, String msg, Pair<@Nullable ?, @Nullable ?>... placers) {
+		msg = setPlacers(msg, placers);
+		pl.sendMessage(json(msg));
 	}
 	
 	public String json(String string) {
