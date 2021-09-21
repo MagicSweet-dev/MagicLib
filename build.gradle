@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
     id 'java'
     
     id 'maven-publish'
@@ -46,12 +46,12 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
 
     compileOnly 'me.clip:placeholderapi:2.9.2'
-
-    compile 'org.jetbrains:annotations:16.0.2'
+    
+    compileOnly 'org.jetbrains:annotations:16.0.2'
 
     // JitPack
-    compile 'fr.mrmicky:FastInv:3.0.3'
-    compile 'fr.mrmicky:FastBoard:1.2.0'
+    compileOnly 'fr.mrmicky:FastInv:3.0.3'
+    compileOnly 'fr.mrmicky:FastBoard:1.2.0'
 }
 
 jar {
