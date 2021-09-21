@@ -1,5 +1,6 @@
 package com.magicsweet.lib.magiclib.key;
 
+import lombok.NonNull;
 import org.bukkit.potion.PotionEffectType;
 
 public enum EnumPotion implements IGettable<PotionEffectType> {
@@ -37,7 +38,7 @@ public enum EnumPotion implements IGettable<PotionEffectType> {
 	HERO_OF_THE_VILLAGE;
 	
 	@Override
-	public PotionEffectType get() {
+	public @NonNull PotionEffectType get() {
 		switch (this) {
 			case SPEED:
 				return PotionEffectType.SPEED;

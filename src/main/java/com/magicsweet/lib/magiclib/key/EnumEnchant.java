@@ -1,5 +1,6 @@
 package com.magicsweet.lib.magiclib.key;
 
+import lombok.NonNull;
 import org.bukkit.enchantments.Enchantment;
 
 public enum EnumEnchant implements IGettable<Enchantment> {
@@ -43,7 +44,7 @@ public enum EnumEnchant implements IGettable<Enchantment> {
 	AQUA_AFFINITY;
 	
 	@Override
-	public Enchantment get() {
+	public @NonNull Enchantment get() {
 		switch (this) {
 			case POWER:
 				return Enchantment.ARROW_DAMAGE;

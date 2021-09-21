@@ -2,6 +2,7 @@ package com.magicsweet.lib.magiclib;
 
 import com.magicsweet.lib.magiclib.event.AsyncServerTickEvent;
 import com.magicsweet.lib.magiclib.event.ServerTickEvent;
+import com.magicsweet.lib.magiclib.menu.event.EventListener;
 import fr.mrmicky.fastinv.FastInvManager;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public final class MagicLib extends JavaPlugin {
 	
 	public static void enable() {
 		FastInvManager.register(instance);
+		new EventListener();
 		new BukkitRunnable() {
 			
 			int tick = 0;

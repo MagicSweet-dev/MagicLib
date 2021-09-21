@@ -1,5 +1,7 @@
 package com.magicsweet.lib.magiclib.key;
 
+import org.jetbrains.annotations.NotNull;
+
 public interface IGettable<T> {
-	T get();
+	@NotNull T get();
 }

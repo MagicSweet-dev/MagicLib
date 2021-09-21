@@ -1,0 +1,11 @@
+bukkit {
+	main = "com.magicsweet.lib.magiclib.MagicLib"
+	apiVersion = "1.13"
+	authors = [
+		"MagicSweet"
+	]
+	
+	softDepend = [
+		"PlaceholderAPI"
+	]
+}

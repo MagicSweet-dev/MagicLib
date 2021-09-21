@@ -1,4 +1,4 @@
-package com.magicsweet.bukkitminecraftadditions.Util;
+package com.magicsweet.lib.magiclib.util;
 
 import lombok.experimental.UtilityClass;
 

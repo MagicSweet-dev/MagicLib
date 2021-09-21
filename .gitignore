@@ -11,5 +11,5 @@ gradle-app.setting
 .gradletasknamecache
 
 # Custom files
-credentials.txt
+maven-publish.gradle
 
