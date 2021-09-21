@@ -32,5 +32,5 @@ public class EventListener extends AbstractEventListener {
 			inv.handleClose(event);
 		}
 	}
-
+	
 }

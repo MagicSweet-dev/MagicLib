@@ -5,6 +5,7 @@ import com.magicsweet.lib.magiclib.color.Colorizer;
 import com.magicsweet.lib.magiclib.menu.event.PlayerClickInMenuEvent;
 import com.magicsweet.lib.magiclib.menu.item.DefaultItems;
 import com.magicsweet.lib.magiclib.menu.item.MenuItem;
+import com.magicsweet.lib.magiclib.util.RangeUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
@@ -42,6 +44,7 @@ public abstract class Menu implements InventoryHolder {
 	private Consumer<InventoryCloseEvent> close = event -> {};
 	
 	private List<Requirement> requirements = new ArrayList<>();
+	private List<Fitter> fitters = new ArrayList<>();
 	
 	private Function<Menu, MenuItem> backButton = DefaultItems.getBackItemGenerator();
 	private Function<Menu, MenuItem> indevButton = DefaultItems.getIndevItemGenerator();
@@ -96,6 +99,28 @@ public abstract class Menu implements InventoryHolder {
 		}
 	}
 	
+	public Fitter fit(Function<Player, List<Object>> objects, Function<Player, int[]> slots) {
+		var fitter = new Fitter(objects, slots);
+		this.fitters.add(fitter);
+		return fitter;
+	}
+	
+	public Fitter fit(Function<Player, List<Object>> objects) {
+		return fit(objects, player -> RangeUtil.integer(0, 8));
+	}
+	
+	public Fitter fit(List<Object> objects, int[] slots) {
+		return fit(player -> objects, player -> slots);
+	}
+	
+	public Fitter fit(List<Object> objects) {
+		return fit(player -> objects, player -> RangeUtil.integer(0, 8));
+	}
+	
+	public Fitter fit(Object... objects) {
+		return fit(player -> Arrays.asList(objects), player -> RangeUtil.integer(0, 8));
+	}
+	
 	public void parent(Menu menu) {
 		this.parent = menu;
 	}
@@ -118,15 +143,15 @@ public abstract class Menu implements InventoryHolder {
 		PROPERTIES END
 	*/
 	
-	public MenuItem item() {
+	public static MenuItem item() {
 		return new MenuItem();
 	}
 	
-	public MenuItem item(ItemStack itemStack) {
+	public static MenuItem item(ItemStack itemStack) {
 		return new MenuItem(itemStack);
 	}
 	
-	public MenuItem item(Material material) {
+	public static MenuItem item(Material material) {
 		return item(new ItemStack(material));
 	}
 	
@@ -156,7 +181,6 @@ public abstract class Menu implements InventoryHolder {
 	
 	public void open(@NotNull Player player) {
 		new Thread(() -> {
-			refresh(player);
 			for (var it: requirements) {
 				if (!it.requirement.apply(player)) {
 					if (it.getMessage() != null) {
@@ -165,6 +189,7 @@ public abstract class Menu implements InventoryHolder {
 					return;
 				}
 			}
+			refresh(player);
 			Bukkit.getScheduler().runTask(MagicLib.getInstance(), () -> {
 				player.openInventory(inventory);
 			});
@@ -173,12 +198,23 @@ public abstract class Menu implements InventoryHolder {
 	
 	public void refresh(@Nullable Player player) {
 		refreshNotContents(player);
+		for (var it: fitters) {
+			it.getCurrentPageContents(player).forEach(this::item);
+			if (it.isPageAvailable(player, it.getCurrentPage(player) + 1)) {
+				item(it.nextPageItemSlot().apply(this), DefaultItems.getNextPageItem().apply(this, it));
+			}
+			if (it.isPageAvailable(player, it.getCurrentPage(player) - 1)) {
+				item(it.previousPageItemSlot().apply(this), DefaultItems.getPreviousPageItem().apply(this, it));
+			}
+		}
 		for (var it: items.entrySet()) {
 			inventory.setItem(it.getKey().get(), it.getValue().getItemStack(player));
 		}
+		
 	}
 	
 	public void refreshNotContents(@Nullable Player player) {
+		if (inventory != null) inventory.clear();
 		inventory = Bukkit.createInventory(this, size.apply(player), Colorizer.format(title.apply(player)));
 	}
 	
