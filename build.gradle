@@ -1,18 +1,19 @@
-import org.apache.tools.ant.filters.ReplaceTokens
-
 plugins {
     id 'com.github.johnrengelman.shadow' version '6.1.0'
     id 'java'
+    
     id 'maven-publish'
+    id 'net.minecrell.plugin-yml.bukkit' version '0.5.0'
 }
+
+apply from: './plugin.yml.gradle'
+if (new File('./maven-publish.gradle').exists()) apply from: './maven-publish.gradle'
 
 sourceCompatibility = 11
 targetCompatibility = 11
 
 group = 'com.magicsweet'
 version = '1.2.0-rc1'
-
-// todo plugin yml plugin, separate publish script (.gitignore) publish to remote without including plugin.yml file
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -53,11 +54,6 @@ dependencies {
     compile 'fr.mrmicky:FastBoard:1.2.0'
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 jar {
     enabled = false
     dependsOn(tasks.shadowJar)
@@ -71,33 +67,4 @@ shadowJar {
     archiveClassifier.set('')
 }
 
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        filter ReplaceTokens, tokens: [version: version]
-    }
-}
 
-publishing {
-    def file = new File('credentials.txt');
-
-    publications {
-        shadow(MavenPublication) { publication ->
-            project.shadow.component(publication)
-            artifact sourcesJar {
-                classifier 'sources'
-            }
-            artifact javadocJar {
-                classifier 'javadoc'
-            }
-        }
-    }
-    repositories {
-        maven {
-            url = "sftp://msweet.xyz:22/ivy/maven3"
-            credentials {
-                username file.readLines().get(0)
-                password file.readLines().get(1)
-            }
-        }
-    }
-}
