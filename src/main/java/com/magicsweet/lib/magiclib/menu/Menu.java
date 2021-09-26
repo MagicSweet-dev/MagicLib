@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -49,6 +50,7 @@ public abstract class Menu implements InventoryHolder {
 	private Function<Menu, MenuItem> backButton = DefaultItems.getBackItemGenerator();
 	private Function<Menu, MenuItem> indevButton = DefaultItems.getIndevItemGenerator();
 	
+	private boolean threaded = true;
 	
 	@Getter Inventory inventory;
 	
@@ -139,6 +141,10 @@ public abstract class Menu implements InventoryHolder {
 		return object;
 	}
 	
+	public void threaded(boolean threaded) {
+		this.threaded = threaded;
+	}
+	
 	/*
 		PROPERTIES END
 	*/
@@ -180,7 +186,7 @@ public abstract class Menu implements InventoryHolder {
 	}
 	
 	public void open(@NotNull Player player) {
-		new Thread(() -> {
+		Runnable expr = () -> {
 			for (var it: requirements) {
 				if (!it.requirement.apply(player)) {
 					if (it.getMessage() != null) {
@@ -193,6 +199,19 @@ public abstract class Menu implements InventoryHolder {
 			Bukkit.getScheduler().runTask(MagicLib.getInstance(), () -> {
 				player.openInventory(inventory);
 			});
+		};
+		if (threaded) new Thread(expr).start();
+		else Bukkit.getScheduler().runTask(MagicLib.getInstance(), expr);
+	}
+	
+	public void open(Player player, int delay) {
+		new Thread(() -> {
+			try {
+				TimeUnit.MILLISECONDS.sleep(delay);
+				open(player);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}).start();
 	}
 	
@@ -214,7 +233,6 @@ public abstract class Menu implements InventoryHolder {
 	}
 	
 	public void refreshNotContents(@Nullable Player player) {
-		if (inventory != null) inventory.clear();
 		inventory = Bukkit.createInventory(this, size.apply(player), Colorizer.format(title.apply(player)));
 	}
 	

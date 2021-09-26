@@ -13,13 +13,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Fitter extends AbstractEventListener {
 	
 	Function<Player, List<Object>> objectList;
-	Function<Object, MenuItem> mapper = object -> (MenuItem) object;
+	BiFunction<Player, Object, MenuItem> mapper = (player, object) -> (MenuItem) object;
 	Function<Player, int[]> slots;
 	
 	@Getter @Setter @Accessors(chain = true, fluent = true) Function<Menu, Integer> previousPageItemSlot = menu -> menu.slot().bottomLeftCorner().get();
@@ -42,8 +43,13 @@ public class Fitter extends AbstractEventListener {
 		return into(player -> slots);
 	}
 	
+	public <T> Fitter map(BiFunction<Player, T, MenuItem> mapper) {
+		this.mapper = (player, it) -> mapper.apply(player, (T) it);
+		return this;
+	}
+	
 	public <T> Fitter map(Function<T, MenuItem> mapper) {
-		this.mapper = it -> mapper.apply((T) it);
+		this.mapper = (player, it) -> mapper.apply((T) it);
 		return this;
 	}
 	
@@ -55,7 +61,7 @@ public class Fitter extends AbstractEventListener {
 		
 		var ii = 0;
 		for (int i = page * slots.size(); i < objectList.size(); i++) {
-			map.put(slots.get(ii), mapper.apply(objectList.get(i)));
+			map.put(slots.get(ii), mapper.apply(player, objectList.get(i)));
 			ii = ii + 1;
 		}
 		

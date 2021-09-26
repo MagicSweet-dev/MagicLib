@@ -16,7 +16,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +29,7 @@ public class MenuItem implements Cloneable {
 	@NotNull Function<@Nullable Player, @NotNull ItemStack> baseItemStack = player -> new ItemStack(Material.APPLE);
 	@Nullable Function<@Nullable Player, @NotNull String> name;
 	@Nullable Function<@Nullable Player, @NotNull List<String>> lore;
+	@NotNull List<Function<@Nullable Player, @NotNull List<String>>> loreAppenders = new ArrayList<>();
 	@NotNull Function<@Nullable Player, @NotNull ItemFlag[]> flags = player -> ItemFlag.values();
 	@NotNull Function<@Nullable Player, @NotNull Boolean> glint = player -> false;
 	@Setter @NotNull BiConsumer<Player, ItemMeta> meta = (player, meta) -> {};
@@ -46,7 +46,13 @@ public class MenuItem implements Cloneable {
 		var meta = item.getItemMeta();
 		this.meta.accept(player, meta);
 		if (name != null) meta.setDisplayName(Colorizer.format(name.apply(player)));
-		if (lore != null) meta.setLore(Colorizer.format(lore.apply(player)));
+		if (lore != null) {
+			var lore = new ArrayList<>(this.lore.apply(player));
+			loreAppenders.forEach(it -> {
+				lore.addAll(it.apply(player));
+			});
+			meta.setLore(Colorizer.format(lore));
+		}
 		for (var flag: flags.apply(player)) {
 			meta.addItemFlags(flag);
 		}
@@ -94,6 +100,20 @@ public class MenuItem implements Cloneable {
 	public MenuItem lore(String... lore) {
 		return lore(Arrays.asList(lore));
 	}
+	
+	public MenuItem loreAppender(Function<@Nullable Player, @NotNull List<String>> lore) {
+		this.loreAppenders.add(lore);
+		return this;
+	}
+	
+	public MenuItem loreAppender(List<String> lore) {
+		return loreAppender(player -> lore);
+	}
+	
+	public MenuItem loreAppender(String... lore) {
+		return loreAppender(Arrays.asList(lore));
+	}
+	
 	
 	public MenuItem flags(Function<@Nullable Player, @NotNull ItemFlag[]> flags) {
 		this.flags = flags;
@@ -145,9 +165,10 @@ public class MenuItem implements Cloneable {
 	@Override
 	public MenuItem clone() {
 		var item = (MenuItem) super.clone();
-		for (Field field: item.getClass().getDeclaredFields()) {
-			field.set(item, getClass().getDeclaredField(field.getName()).get(this));
-		}
+		
+		item.loreAppenders = new ArrayList<>(this.loreAppenders);
+		item.clicks = new ArrayList<>(this.clicks);
+		
 		return item;
 	}
 	
