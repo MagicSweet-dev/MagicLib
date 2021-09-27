@@ -53,6 +53,7 @@ public final class MagicLib extends JavaPlugin {
 			}
 			
 		}.runTaskTimer(instance, 0, 1);
+		
 		log("Scanning plugin classpath...");
 		for (var cl: getAllClassesAnnotatedWith(LoadAtStartup.class)) {
 			startupItems.add(cl.getDeclaredConstructor().newInstance());
