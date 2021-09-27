@@ -1,4 +1,4 @@
-package com.magicsweet.lib.magiclib.text;
+package com.magicsweet.lib.magiclib.color;
 
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;

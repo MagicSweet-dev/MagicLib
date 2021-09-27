@@ -1,5 +1,6 @@
 package com.magicsweet.lib.magiclib.menu.event;
 
+import com.magicsweet.lib.magiclib.annotations.LoadAtStartup;
 import com.magicsweet.lib.magiclib.event.AbstractEventListener;
 import com.magicsweet.lib.magiclib.menu.Menu;
 import org.bukkit.event.EventHandler;
@@ -7,6 +8,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 
+@LoadAtStartup
 public class EventListener extends AbstractEventListener {
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
