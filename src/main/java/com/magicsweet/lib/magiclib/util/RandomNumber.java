@@ -42,16 +42,7 @@ public class RandomNumber {
 	}
 	
 	public int fromString(String range) {
-		range = range.replace(" ", "");
-		if (range.contains("-")) {
-			var split = range.split("-");
-			return generateInt(Integer.parseInt(split[0]), Integer.parseInt(split[split.length - 1]));
-		}
-		if (range.contains("/")) {
-			var split = range.split("/");
-			return Integer.parseInt(split[generateInt(0, split.length - 1)]);
-		}
-		return Integer.parseInt(range);
+		return IntRange.fromString(range).random();
 	}
 	
 }
