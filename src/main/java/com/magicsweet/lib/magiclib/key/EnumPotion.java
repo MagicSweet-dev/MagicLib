@@ -1,112 +1,40 @@
 package com.magicsweet.lib.magiclib.key;
 
-import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import org.bukkit.potion.PotionEffectType;
 
-public enum EnumPotion implements IGettable<PotionEffectType> {
-	SPEED,
-	SLOWNESS,
-	HASTE,
-	MINING_FATIGUE,
-	STRENGTH,
-	INSTANT_HEALTH,
-	INSTANT_DAMAGE,
-	JUMP_BOOST,
-	NAUSEA,
-	REGENERATION,
-	RESISTANCE,
-	FIRE_RESISTANCE,
-	WATER_BREATHING,
-	INVISIBILITY,
-	BLINDNESS,
-	NIGHT_VISION,
-	HUNGER,
-	WEAKNESS,
-	POISON,
-	WITHER,
-	HEALTH_BOOST,
-	ABSORPTION,
-	SATURATION,
-	GLOWING,
-	LEVITATION,
-	LUCK,
-	UNLUCK,
-	SLOW_FALLING,
-	CONDUIT_POWER,
-	DOLPHINS_GRACE,
-	BAD_OMEN,
-	HERO_OF_THE_VILLAGE;
-	
-	@Override
-	public @NonNull PotionEffectType get() {
-		switch (this) {
-			case SPEED:
-				return PotionEffectType.SPEED;
-			case SLOWNESS:
-				return PotionEffectType.SLOW;
-			case HASTE:
-				return PotionEffectType.FAST_DIGGING;
-			case MINING_FATIGUE:
-				return PotionEffectType.SLOW_DIGGING;
-			case STRENGTH:
-				return PotionEffectType.INCREASE_DAMAGE;
-			case INSTANT_HEALTH:
-				return PotionEffectType.HEAL;
-			case INSTANT_DAMAGE:
-				return PotionEffectType.HARM;
-			case JUMP_BOOST:
-				return PotionEffectType.JUMP;
-			case NAUSEA:
-				return PotionEffectType.CONFUSION;
-			case REGENERATION:
-				return PotionEffectType.REGENERATION;
-			case RESISTANCE:
-				return PotionEffectType.DAMAGE_RESISTANCE;
-			case FIRE_RESISTANCE:
-				return PotionEffectType.FIRE_RESISTANCE;
-			case WATER_BREATHING:
-				return PotionEffectType.WATER_BREATHING;
-			case INVISIBILITY:
-				return PotionEffectType.INVISIBILITY;
-			case BLINDNESS:
-				return PotionEffectType.BLINDNESS;
-			case NIGHT_VISION:
-				return PotionEffectType.NIGHT_VISION;
-			case HUNGER:
-				return PotionEffectType.HUNGER;
-			case WEAKNESS:
-				return PotionEffectType.WEAKNESS;
-			case POISON:
-				return PotionEffectType.POISON;
-			case WITHER:
-				return PotionEffectType.WITHER;
-			case HEALTH_BOOST:
-				return PotionEffectType.HEALTH_BOOST;
-			case ABSORPTION:
-				return PotionEffectType.ABSORPTION;
-			case SATURATION:
-				return PotionEffectType.SATURATION;
-			case GLOWING:
-				return PotionEffectType.GLOWING;
-			case LEVITATION:
-				return PotionEffectType.LEVITATION;
-			case LUCK:
-				return PotionEffectType.LUCK;
-			case UNLUCK:
-				return PotionEffectType.UNLUCK;
-			case SLOW_FALLING:
-				return PotionEffectType.SLOW_FALLING;
-			case CONDUIT_POWER:
-				return PotionEffectType.CONDUIT_POWER;
-			case DOLPHINS_GRACE:
-				return PotionEffectType.DOLPHINS_GRACE;
-			case BAD_OMEN:
-				return PotionEffectType.BAD_OMEN;
-			case HERO_OF_THE_VILLAGE:
-				return PotionEffectType.HERO_OF_THE_VILLAGE;
-			default:
-				return null;
-		}
-	}
-	
+@UtilityClass
+public class EnumPotion {
+	public PotionEffectType SPEED = PotionEffectType.SPEED;
+	public PotionEffectType SLOWNESS = PotionEffectType.SLOW;
+	public PotionEffectType HASTE = PotionEffectType.FAST_DIGGING;
+	public PotionEffectType MINING_FATIGUE = PotionEffectType.SLOW_DIGGING;
+	public PotionEffectType STRENGTH = PotionEffectType.INCREASE_DAMAGE;
+	public PotionEffectType INSTANT_HEALTH = PotionEffectType.HEAL;
+	public PotionEffectType INSTANT_DAMAGE = PotionEffectType.HARM;
+	public PotionEffectType JUMP_BOOST = PotionEffectType.JUMP;
+	public PotionEffectType NAUSEA = PotionEffectType.CONFUSION;
+	public PotionEffectType REGENERATION = PotionEffectType.REGENERATION;
+	public PotionEffectType RESISTANCE = PotionEffectType.DAMAGE_RESISTANCE;
+	public PotionEffectType FIRE_RESISTANCE = PotionEffectType.FIRE_RESISTANCE;
+	public PotionEffectType WATER_BREATHING = PotionEffectType.WATER_BREATHING;
+	public PotionEffectType INVISIBILITY = PotionEffectType.INVISIBILITY;
+	public PotionEffectType BLINDNESS = PotionEffectType.BLINDNESS;
+	public PotionEffectType NIGHT_VISION = PotionEffectType.NIGHT_VISION;
+	public PotionEffectType HUNGER = PotionEffectType.HUNGER;
+	public PotionEffectType WEAKNESS = PotionEffectType.WEAKNESS;
+	public PotionEffectType POISON = PotionEffectType.POISON;
+	public PotionEffectType WITHER = PotionEffectType.WITHER;
+	public PotionEffectType HEALTH_BOOST = PotionEffectType.HEALTH_BOOST;
+	public PotionEffectType ABSORPTION = PotionEffectType.ABSORPTION;
+	public PotionEffectType SATURATION = PotionEffectType.SATURATION;
+	public PotionEffectType GLOWING = PotionEffectType.GLOWING;
+	public PotionEffectType LEVITATION = PotionEffectType.LEVITATION;
+	public PotionEffectType LUCK = PotionEffectType.LUCK;
+	public PotionEffectType UNLUCK = PotionEffectType.UNLUCK;
+	public PotionEffectType SLOW_FALLING = PotionEffectType.SLOW_FALLING;
+	public PotionEffectType CONDUIT_POWER = PotionEffectType.CONDUIT_POWER;
+	public PotionEffectType DOLPHINS_GRACE = PotionEffectType.DOLPHINS_GRACE;
+	public PotionEffectType BAD_OMEN = PotionEffectType.BAD_OMEN;
+	public PotionEffectType HERO_OF_THE_VILLAGE = PotionEffectType.HERO_OF_THE_VILLAGE;
 }

@@ -58,7 +58,7 @@ public class MenuItem implements Cloneable {
 		}
 		if (glint.apply(player)) {
 			meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-			meta.addEnchant(EnumEnchant.POWER.get(), 0, true);
+			meta.addEnchant(EnumEnchant.POWER, 0, true);
 		}
 		item.setItemMeta(meta);
 		

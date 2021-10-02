@@ -1,5 +1,7 @@
 package com.magicsweet.lib.magiclib.util;
 
+import com.magicsweet.lib.magiclib.menu.Menu;
+import com.magicsweet.lib.magiclib.menu.item.MenuItem;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +20,10 @@ public class ItemUtil {
 	
 	public <T extends ItemMeta> ItemStack meta(Material material, Consumer<T> consumer) {
 		return meta(new ItemStack(material), consumer);
+	}
+	
+	public MenuItem itemBuilder() {
+		return Menu.item();
 	}
 	
 }

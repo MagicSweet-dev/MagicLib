@@ -101,7 +101,7 @@ public class Colorizer {
 		while (match.find()) {
 			String color = string.substring(match.start(), match.end());
 			
-			string = string.replace(color, convertHexColorToNearestMinecraftColor(color));
+			string = string.replace(color, convertHexToNearest(color));
 			
 			match = pattern.matcher(string);
 		}
@@ -110,7 +110,7 @@ public class Colorizer {
 	}
 
 	
-	private String convertHexColorToNearestMinecraftColor(String hex) {
+	private String convertHexToNearest(String hex) {
 		
 		HashMap<Color, String> mcColors = new HashMap<>();
 		
