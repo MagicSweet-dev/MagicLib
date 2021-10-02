@@ -3,7 +3,6 @@ package com.magicsweet.lib.magiclib;
 import com.magicsweet.lib.magiclib.annotations.LoadAtStartup;
 import com.magicsweet.lib.magiclib.event.AsyncServerTickEvent;
 import com.magicsweet.lib.magiclib.event.ServerTickEvent;
-import com.magicsweet.lib.magiclib.menu.event.EventListener;
 import fr.mrmicky.fastinv.FastInvManager;
 import lombok.Cleanup;
 import lombok.Getter;
@@ -32,6 +31,7 @@ public final class MagicLib extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		enable(this);
+		warn("Usage of MagicLib as separate plugin is deprecated! This should work, but this is not how MagicLib is designed to work. Consider shadowing MagicLib directly into your plugin next time.");
 	}
 	
 	@SneakyThrows
@@ -113,7 +113,11 @@ public final class MagicLib extends JavaPlugin {
 	}
 	
 	public static void log(String msg) {
-		instance.getLogger().info("[" + instance.getName() + "/MagicLib] " + msg);
+		Bukkit.getLogger().info("[" + instance.getName() + "/MagicLib] " + msg);
+	}
+	
+	public static void warn(String msg) {
+		Bukkit.getLogger().warning("[" + instance.getName() + "/MagicLib] " + msg);
 	}
 	
 }

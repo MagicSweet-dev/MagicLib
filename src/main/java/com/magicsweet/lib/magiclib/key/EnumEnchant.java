@@ -1,130 +1,46 @@
 package com.magicsweet.lib.magiclib.key;
 
-import lombok.NonNull;
+import lombok.experimental.UtilityClass;
 import org.bukkit.enchantments.Enchantment;
 
-public enum EnumEnchant implements IGettable<Enchantment> {
-	POWER,
-	FLAME,
-	INFINITY,
-	PUNCH,
-	CURSE_OF_BINDING,
-	CHANNELING,
-	SHARPNESS,
-	BANE_OF_ARTHOROPODS,
-	SMITE,
-	DEPTH_STRIDER,
-	EFFICIENCY,
-	UNBREAKING,
-	FIRE_ASPECT,
-	FROST_WALKER,
-	IMPALING,
-	KNOCKBACK,
-	LOOTING,
-	FORTUNE,
-	LOYALTY,
-	LUCK_OF_THE_SEA,
-	LURE,
-	MENDING,
-	MULTISHOT,
-	RESPIRATION,
-	PIERCING,
-	PROTECTION,
-	BLAST_PROTECTION,
-	FEATHER_FALLING,
-	FIRE_PROTECTION,
-	PROJECTILE_PROTECTION,
-	QUICK_CHARGE,
-	RIPTIDE,
-	SILK_TOUCH,
-	SOUL_SPEED,
-	SWEEPING_EDGE,
-	THORNS,
-	CURSE_OF_VANISHING,
-	AQUA_AFFINITY;
-	
-	@Override
-	public @NonNull Enchantment get() {
-		switch (this) {
-			case POWER:
-				return Enchantment.ARROW_DAMAGE;
-			case FLAME:
-				return Enchantment.ARROW_FIRE;
-			case INFINITY:
-				return Enchantment.ARROW_INFINITE;
-			case PUNCH:
-				return Enchantment.ARROW_KNOCKBACK;
-			case CURSE_OF_BINDING:
-				return Enchantment.BINDING_CURSE;
-			case CHANNELING:
-				return Enchantment.CHANNELING;
-			case SHARPNESS:
-				return Enchantment.DAMAGE_ALL;
-			case BANE_OF_ARTHOROPODS:
-				return Enchantment.DAMAGE_ARTHROPODS;
-			case SMITE:
-				return Enchantment.DAMAGE_UNDEAD;
-			case DEPTH_STRIDER:
-				return Enchantment.DEPTH_STRIDER;
-			case EFFICIENCY:
-				return Enchantment.DIG_SPEED;
-			case UNBREAKING:
-				return Enchantment.DURABILITY;
-			case FIRE_ASPECT:
-				return Enchantment.FIRE_ASPECT;
-			case FROST_WALKER:
-				return Enchantment.FROST_WALKER;
-			case IMPALING:
-				return Enchantment.IMPALING;
-			case KNOCKBACK:
-				return Enchantment.KNOCKBACK;
-			case LOOTING:
-				return Enchantment.LOOT_BONUS_MOBS;
-			case FORTUNE:
-				return Enchantment.LOOT_BONUS_BLOCKS;
-			case LOYALTY:
-				return Enchantment.LOYALTY;
-			case LUCK_OF_THE_SEA:
-				return Enchantment.LUCK;
-			case LURE:
-				return Enchantment.LURE;
-			case MENDING:
-				return Enchantment.MENDING;
-			case MULTISHOT:
-				return Enchantment.MULTISHOT;
-			case RESPIRATION:
-				return Enchantment.OXYGEN;
-			case PIERCING:
-				return Enchantment.PIERCING;
-			case PROTECTION:
-				return Enchantment.PROTECTION_ENVIRONMENTAL;
-			case BLAST_PROTECTION:
-				return Enchantment.PROTECTION_EXPLOSIONS;
-			case FEATHER_FALLING:
-				return Enchantment.PROTECTION_FALL;
-			case FIRE_PROTECTION:
-				return Enchantment.PROTECTION_FIRE;
-			case PROJECTILE_PROTECTION:
-				return Enchantment.PROTECTION_PROJECTILE;
-			case QUICK_CHARGE:
-				return Enchantment.QUICK_CHARGE;
-			case RIPTIDE:
-				return Enchantment.RIPTIDE;
-			case SILK_TOUCH:
-				return Enchantment.SILK_TOUCH;
-			case SOUL_SPEED:
-				return Enchantment.SOUL_SPEED;
-			case SWEEPING_EDGE:
-				return Enchantment.SWEEPING_EDGE;
-			case THORNS:
-				return Enchantment.THORNS;
-			case CURSE_OF_VANISHING:
-				return Enchantment.VANISHING_CURSE;
-			case AQUA_AFFINITY:
-				return Enchantment.WATER_WORKER;
-			default:
-				return null;
-		}
-	}
-	
+@UtilityClass
+public class EnumEnchant {
+	public Enchantment POWER = Enchantment.ARROW_DAMAGE;
+	public Enchantment FLAME = Enchantment.ARROW_FIRE;
+	public Enchantment INFINITY = Enchantment.ARROW_INFINITE;
+	public Enchantment PUNCH = Enchantment.ARROW_KNOCKBACK;
+	public Enchantment CURSE_OF_BINDING = Enchantment.BINDING_CURSE;
+	public Enchantment CHANNELING = Enchantment.CHANNELING;
+	public Enchantment SHARPNESS = Enchantment.DAMAGE_ALL;
+	public Enchantment BANE_OF_ARTHOROPODS = Enchantment.DAMAGE_ARTHROPODS;
+	public Enchantment SMITE = Enchantment.DAMAGE_UNDEAD;
+	public Enchantment DEPTH_STRIDER = Enchantment.DEPTH_STRIDER;
+	public Enchantment EFFICIENCY = Enchantment.DIG_SPEED;
+	public Enchantment UNBREAKING = Enchantment.DURABILITY;
+	public Enchantment FIRE_ASPECT = Enchantment.FIRE_ASPECT;
+	public Enchantment FROST_WALKER = Enchantment.FROST_WALKER;
+	public Enchantment IMPALING = Enchantment.IMPALING;
+	public Enchantment KNOCKBACK = Enchantment.KNOCKBACK;
+	public Enchantment LOOTING = Enchantment.LOOT_BONUS_MOBS;
+	public Enchantment FORTUNE = Enchantment.LOOT_BONUS_BLOCKS;
+	public Enchantment LOYALTY = Enchantment.LOYALTY;
+	public Enchantment LUCK_OF_THE_SEA = Enchantment.LUCK;
+	public Enchantment LURE = Enchantment.LURE;
+	public Enchantment MENDING = Enchantment.MENDING;
+	public Enchantment MULTISHOT = Enchantment.MULTISHOT;
+	public Enchantment RESPIRATION = Enchantment.OXYGEN;
+	public Enchantment PIERCING = Enchantment.PIERCING;
+	public Enchantment PROTECTION = Enchantment.PROTECTION_ENVIRONMENTAL;
+	public Enchantment BLAST_PROTECTION = Enchantment.PROTECTION_EXPLOSIONS;
+	public Enchantment FEATHER_FALLING = Enchantment.PROTECTION_FALL;
+	public Enchantment FIRE_PROTECTION = Enchantment.PROTECTION_FIRE;
+	public Enchantment PROJECTILE_PROTECTION = Enchantment.PROTECTION_PROJECTILE;
+	public Enchantment QUICK_CHARGE = Enchantment.QUICK_CHARGE;
+	public Enchantment RIPTIDE = Enchantment.RIPTIDE;
+	public Enchantment SILK_TOUCH = Enchantment.SILK_TOUCH;
+	public Enchantment SOUL_SPEED = Enchantment.SOUL_SPEED;
+	public Enchantment SWEEPING_EDGE = Enchantment.SWEEPING_EDGE;
+	public Enchantment THORNS = Enchantment.THORNS;
+	public Enchantment CURSE_OF_VANISHING = Enchantment.VANISHING_CURSE;
+	public Enchantment AQUA_AFFINITY = Enchantment.WATER_WORKER;
 }

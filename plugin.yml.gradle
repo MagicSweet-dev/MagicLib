@@ -4,7 +4,6 @@ bukkit {
 	authors = [
 		"MagicSweet"
 	]
-	
 	softDepend = [
 		"PlaceholderAPI"
 	]
