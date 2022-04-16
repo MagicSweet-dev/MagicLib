@@ -66,7 +66,7 @@ public final class MagicLib extends JavaPlugin {
 		};
 		
 		tick.runTaskTimer(instance, 0, 1);
-		tick.runTaskTimerAsynchronously(instance, 0, 1);
+		async.runTaskTimerAsynchronously(instance, 0, 1);
 		
 		log("Scanning plugin classpath...");
 		for (var cl: getAllClassesAnnotatedWith(LoadAtStartup.class)) {
