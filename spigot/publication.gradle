@@ -1,0 +1,8 @@
+publishing {
+	publications {
+		"${project.name}"(MavenPublication) {
+			artifactId = 'MagicLib-spigot'
+			from components.java
+		}
+	}
+}

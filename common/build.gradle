@@ -1,0 +1,4 @@
+plugins {
+	id 'io.freefair.lombok'
+	id 'java'
+}

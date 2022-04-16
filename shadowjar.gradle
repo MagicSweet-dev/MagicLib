@@ -1,0 +1,21 @@
+
+jar {
+	enabled = false
+	dependsOn << shadowJar
+}
+
+
+dependencies {
+	subprojects { Project pr ->
+		implementation pr
+	}
+}
+
+shadowJar {
+	dependencies {
+		include dependency('.*:.*:.*')
+	}
+	
+	relocate 'fr.mrmicky', 'com.magicsweet.lib.magiclib.shadow.fr.mrmicky'
+	archiveClassifier.set('')
+}
